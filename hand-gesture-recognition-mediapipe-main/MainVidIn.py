@@ -6,6 +6,7 @@ import argparse
 import itertools
 from collections import Counter
 from collections import deque
+from datetime import datetime
 
 # ///////////////////////////////////////////////
 
@@ -180,6 +181,17 @@ def main():
                 with open(csv_path, 'a', newline="") as f:
                     writer = csv.writer(f)
                     writer.writerow([*pre_processed_landmark_list])
+
+                    curr_time = datetime.now()
+                    formatted_time = curr_time.strftime('%M:%S.%f')
+
+                    with open("keypoint_output1.csv", "r") as fin, open("out.csv", 'w', newline='') as fout:
+                        reader = csv.reader(fin)
+                        writer = csv.writer(fout)
+                        for line in reader:
+                            line.append(curr_time)
+
+                            writer.writerow(line)
 
                 #print(pre_processed_landmark_list)
 
